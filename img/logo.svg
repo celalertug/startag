@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs><mask id="hole" maskUnits="userSpaceOnUse" x="0" y="0" width="128" height="128"><rect width="128" height="128" fill="#fff"/><circle cx="46.58" cy="46.58" r="6.16" fill="#000"/></mask></defs>
+  <g mask="url(#hole)"><path d="M -50 0 L -24 -30 L 40 -30 L 40 30 L -24 30 Z" transform="translate(64 64) scale(0.88) rotate(45)" fill="none" stroke="#FFF8EC" stroke-width="18" stroke-linejoin="round"/>
+  <path d="M -50 0 L -24 -30 L 40 -30 L 40 30 L -24 30 Z" transform="translate(64 64) scale(0.88) rotate(45)" fill="#0B2A4A" stroke="#0B2A4A" stroke-width="10" stroke-linejoin="round"/></g>
+  <path d="M -28 0 C -44 2, -52 14, -64 10" transform="translate(64 64) scale(0.88) rotate(45)" fill="none" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/>
+  <polygon points="70.22,48.22 75.65,62.75 91.15,63.42 79.01,73.08 83.15,88.02 70.22,79.46 57.29,88.02 61.43,73.08 49.3,63.42 64.79,62.75" fill="#fff" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="70.22,60.98 72.5,67.08 79.01,67.37 73.91,71.42 75.65,77.7 70.22,74.1 64.79,77.7 66.53,71.42 61.43,67.37 67.94,67.08" fill="#C8102E"/>
+</svg>
