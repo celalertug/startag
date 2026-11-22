@@ -3,128 +3,151 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>StarTag – Texas SPV for Marketplace</title>
-<meta name="description" content="A Chrome extension that shows the Texas Standard Presumptive Value (TxDMV) of Facebook Marketplace vehicle listings, with similar variants.">
-<meta property="og:title" content="StarTag – Texas SPV for Marketplace">
-<meta property="og:description" content="See the Texas Standard Presumptive Value (TxDMV) of Facebook Marketplace vehicle listings, with similar variants.">
-<meta property="og:image" content="https://celalertug.github.io/startag/img/card.png">
+<title>StarTag: what Marketplace cars actually sell for in Texas</title>
+<meta name="description" content="The asking price is what the seller wants. StarTag shows what cars like it actually sell for in Texas, next to every Facebook Marketplace listing. A free Chrome extension.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://celalertug.github.io/startag/">
+<meta property="og:title" content="Is that Marketplace price fair?">
+<meta property="og:description" content="The asking price is what the seller wants. StarTag shows what cars like it actually sell for in Texas.">
+<meta property="og:image" content="https://celalertug.github.io/startag/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" sizes="32x32" href="img/icon-32.png">
 <link rel="icon" type="image/svg+xml" href="img/logo.svg">
+<link rel="apple-touch-icon" href="img/icon-128.png">
 <style>
   :root {
     --navy: #0B2A4A;
     --red: #C8102E;
-    --cream: #FFF8EC;
     --ink: #1f2937;
     --muted: #5b6472;
-    --line: #e7dfd0;
+    --faint: #8a9099;
+    --line: #eceef1;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     color: var(--ink);
     background: #fff;
+    -webkit-font-smoothing: antialiased;
   }
-  a { color: var(--navy); }
-  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
-  header { background: var(--cream); border-bottom: 1px solid var(--line); }
-  .hero { display: flex; align-items: center; gap: 40px; padding: 56px 0 48px; }
-  .hero img { width: 140px; height: 140px; flex: none; }
-  h1 { margin: 0; font-size: 56px; line-height: 1.05; letter-spacing: -1.5px; color: var(--navy); }
-  h1 span { color: var(--red); }
-  .tagline { margin: 10px 0 4px; font-size: 24px; color: var(--ink); }
-  .sub { margin: 0 0 24px; color: var(--muted); }
-  .buttons { display: flex; flex-wrap: wrap; gap: 12px; }
-  .btn {
-    display: inline-block; padding: 11px 20px; border-radius: 8px;
-    font-weight: 600; text-decoration: none; border: 1px solid var(--navy);
+  .wrap { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 32px; }
+
+  .brand {
+    display: inline-flex; align-items: center; gap: 10px; margin-top: 28px;
+    font-size: 19px; font-weight: 650; letter-spacing: -0.2px; color: var(--navy); text-decoration: none;
   }
-  .btn.primary { background: var(--navy); color: #fff; }
-  main section { padding: 48px 0; border-bottom: 1px solid var(--line); }
-  main section:last-child { border-bottom: 0; }
-  h2 { margin: 0 0 16px; font-size: 26px; color: var(--navy); }
-  figure { margin: 0; }
-  figure img {
-    width: 100%; height: auto; display: block;
-    border: 1px solid var(--line); border-radius: 10px;
+  .brand img { width: 30px; height: 30px; }
+  .brand b { font-weight: inherit; }
+  .brand span { color: var(--red); }
+
+  main { flex: 1; display: flex; align-items: center; }
+  .hero { display: grid; grid-template-columns: 1fr 300px; gap: 88px; align-items: center; padding-top: 72px; padding-bottom: 96px; }
+  h1 { margin: 0; max-width: 560px; font-size: 56px; line-height: 1.06; letter-spacing: -1.8px; font-weight: 650; color: var(--navy); }
+  .lede { margin: 20px 0 32px; max-width: 500px; font-size: 20px; line-height: 1.5; color: var(--muted); }
+  .cta {
+    display: inline-block; padding: 13px 24px; border-radius: 9px;
+    background: var(--navy); color: #fff; font-size: 16px; font-weight: 600; text-decoration: none;
   }
-  figcaption { margin-top: 8px; font-size: 14px; color: var(--muted); }
-  .shots { display: grid; gap: 28px; }
-  ul.features { margin: 0; padding-left: 20px; }
-  ul.features li { margin: 6px 0; }
-  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-  .note { font-size: 15px; color: var(--muted); }
-  footer { background: var(--cream); border-top: 1px solid var(--line); padding: 28px 0; font-size: 15px; color: var(--muted); }
-  footer nav { display: flex; flex-wrap: wrap; gap: 18px; margin-bottom: 8px; }
-  @media (max-width: 720px) {
-    .hero { flex-direction: column; align-items: flex-start; gap: 20px; padding: 36px 0; }
-    .hero img { width: 96px; height: 96px; }
-    h1 { font-size: 42px; }
-    .tagline { font-size: 20px; }
-    .cols { grid-template-columns: 1fr; gap: 0; }
+  .cta:hover { background: #143a62; }
+  .free { margin-left: 14px; font-size: 15px; color: var(--muted); }
+  .source { margin: 48px 0 0; padding-top: 16px; max-width: 480px; border-top: 1px solid var(--line); font-size: 14px; line-height: 1.55; color: var(--faint); }
+  .source a { color: var(--muted); }
+
+  /* The card on a listing, drawn in HTML (values from a real Houston listing). */
+  .listing { position: relative; width: 300px; border: 1px solid #e4e6ea; border-radius: 14px; background: #fff; }
+  .photo { height: 150px; display: flex; align-items: flex-end; justify-content: flex-end; padding: 0 20px 18px 0; background: #eef1f4; border-radius: 13px 13px 0 0; }
+  .photo svg { width: 180px; height: 72px; }
+  .meta { padding: 12px 16px 16px; font-family: Helvetica, Arial, sans-serif; }
+  .meta .t { font-size: 15px; font-weight: 600; line-height: 1.3; color: #1c1e21; }
+  .meta .p { margin-top: 4px; font-size: 17px; font-weight: 600; color: #1c1e21; }
+  .meta .m { margin-top: 2px; font-size: 13px; color: #65676b; }
+  .card {
+    position: absolute; top: -22px; left: -56px; width: 196px; padding: 11px 14px 12px;
+    background: #fff; border: 1px solid #e2e5ea; border-top: 3px solid var(--navy); border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(11, 42, 74, 0.10); font-size: 13px; line-height: 1.4;
+  }
+  .card .hd { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 650; color: var(--navy); }
+  .card .hd img { width: 14px; height: 14px; }
+  .card .hd b { font-weight: inherit; }
+  .card .hd span { color: var(--red); }
+  .card .v { margin-top: 5px; font-size: 27px; font-weight: 650; line-height: 1.1; letter-spacing: -0.5px; color: var(--navy); }
+  .card .l { font-size: 12.5px; color: var(--muted); }
+  .card .r { display: flex; justify-content: space-between; margin-top: 9px; padding-top: 8px; border-top: 1px solid #eef0f2; color: var(--muted); }
+  .card .r b { font-weight: 600; color: var(--ink); }
+  .card .up { font-weight: 600; color: var(--red); }
+
+  footer { border-top: 1px solid var(--line); font-size: 14px; color: var(--faint); }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 6px 22px; padding-top: 20px; padding-bottom: 20px; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+  footer .legal { margin-left: auto; }
+
+  @media (max-width: 860px) {
+    .wrap { padding: 0 24px; }
+    .hero { grid-template-columns: 1fr; gap: 64px; padding-top: 48px; padding-bottom: 72px; }
+    h1 { font-size: 42px; letter-spacing: -1.2px; }
+    .lede { font-size: 18px; }
+    .source { margin-top: 36px; }
+    .listing { margin-left: 56px; }
+    footer .legal { margin-left: 0; }
+  }
+  @media (max-width: 420px) {
+    h1 { font-size: 36px; }
+    .listing { width: 260px; margin-left: 40px; }
+    .card { left: -40px; width: 180px; }
   }
 </style>
 </head>
 <body>
-<header>
+<header class="wrap">
+  <a class="brand" href="./"><img src="img/logo.svg" alt="" width="30" height="30"><b>Star<span>Tag</span></b></a>
+</header>
+
+<main>
   <div class="wrap hero">
-    <img src="img/logo.svg" alt="StarTag logo" width="140" height="140">
     <div>
-      <h1>Star<span>Tag</span></h1>
-      <p class="tagline">Texas SPV on every Marketplace car</p>
-      <p class="sub">A Chrome extension that shows the Texas Standard Presumptive Value (SPV) of the vehicle on a Facebook Marketplace listing, next to the asking price.</p>
-      <div class="buttons">
-        <a class="btn primary" href="https://chromewebstore.google.com/detail/pbjnpmknihffaicdpihfnhmknekfmiph">Add to Chrome</a>
+      <h1>Is that Marketplace price fair?</h1>
+      <p class="lede">The asking price is what the seller wants. StarTag shows what cars like it actually sell for in Texas.</p>
+      <a class="cta" href="https://chromewebstore.google.com/detail/pbjnpmknihffaicdpihfnhmknekfmiph">Add to Chrome</a><span class="free">Free</span>
+      <p class="source">The number is the state's own: TxDMV's <a href="https://www.txdmv.gov/standard-presumptive-calculator">Standard Presumptive Value</a>, built from Texas sales, not from listings. Updated weekly.</p>
+    </div>
+
+    <div class="listing" role="img" aria-label="A Marketplace listing of a 2017 Mercedes-Benz GLC 300 asking $11,799, with the StarTag card showing $8,150, what it sells for in Texas: the asking price is 45% above it.">
+      <div class="photo">
+        <svg viewBox="0 0 120 48" aria-hidden="true">
+          <path d="M6 36v-7c0-4 3-6 8-7l16-2 14-10c3-2 6-3 10-3h22c4 0 7 1 10 4l9 9 12 2c4 1 7 3 7 7v7z" fill="#c6cdd6"/>
+          <path d="M47 19l9-7h13v7zM73 12h9l7 7H73z" fill="#e4e8ed"/>
+          <circle cx="30" cy="37" r="8" fill="#9aa3ae"/><circle cx="30" cy="37" r="3.5" fill="#eef1f4"/>
+          <circle cx="92" cy="37" r="8" fill="#9aa3ae"/><circle cx="92" cy="37" r="3.5" fill="#eef1f4"/>
+        </svg>
+      </div>
+      <div class="meta">
+        <div class="t">2017 Mercedes-Benz GLC 300</div>
+        <div class="p">$11,799</div>
+        <div class="m">Houston, TX · 120,000 mi</div>
+      </div>
+      <div class="card" aria-hidden="true">
+        <div class="hd"><img src="img/logo-small.svg" alt=""><b>Star<span>Tag</span></b></div>
+        <div class="v">$8,150</div>
+        <div class="l">Sells for in Texas</div>
+        <div class="r"><span>Asking</span><span><b>$11,799</b> <span class="up">+45%</span></span></div>
       </div>
     </div>
   </div>
-</header>
-
-<main class="wrap">
-  <section>
-    <div class="shots">
-      <figure>
-        <img src="img/card.png" alt="The StarTag card on a Marketplace listing of a 2017 Mercedes-Benz GLC 300: SPV $8,150, asking price $11,799, 45% above the SPV" width="1280" height="800">
-        <figcaption>The card on a listing: the SPV of the vehicle and how far the asking price is above or below it.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section class="cols">
-    <div>
-      <h2>What it shows</h2>
-      <ul class="features">
-        <li>The SPV of the listing's vehicle, and how far the asking price is above or below it.</li>
-        <li>The model and engine of the VIN the value is for.</li>
-        <li>Listings without a VIN get an estimate from their year, make, model and text, with a confidence level. Type the VIN on the card for an exact value.</li>
-        <li>Similar variants of the model (drive, engine, trim) and their values, on request; click one to use it.</li>
-        <li>Mileage is taken into account for recent model years.</li>
-      </ul>
-    </div>
-    <div>
-      <h2>How it works</h2>
-      <p>SPV values come from the TxDMV Standard Presumptive Value calculator (tools.txdmv.gov). For each listing you open, StarTag sends TxDMV a VIN and the listing's mileage, nothing else. It asks before the first lookup.</p>
-      <p>StarTag has no server, no account and no tracking; results are kept in your browser so a vehicle is not looked up twice. Details are in the <a href="https://gist.github.com/celalertug/ff7214f00de40b35398c74f154c5055e">privacy policy</a>.</p>
-    </div>
-  </section>
-
-  <section>
-    <h2>Good to know</h2>
-    <p>Values are for information only; <a href="https://www.txdmv.gov/standard-presumptive-calculator">TxDMV's own calculator</a> is the authoritative source.</p>
-    <p class="note">StarTag is not affiliated with, endorsed by or sponsored by the Texas Department of Motor Vehicles or Meta Platforms, Inc. Facebook and Marketplace are trademarks of Meta Platforms, Inc.</p>
-    <p class="note">Vehicle data: NHTSA vPIC and NHTSA consumer complaints (public domain), via <a href="https://github.com/cardog-ai/corgi">@cardog/corgi</a> (ISC License).</p>
-  </section>
 </main>
 
 <footer>
   <div class="wrap">
-    <nav>
-      <a href="https://chromewebstore.google.com/detail/pbjnpmknihffaicdpihfnhmknekfmiph">Chrome Web Store</a>
-      <a href="https://gist.github.com/celalertug/ff7214f00de40b35398c74f154c5055e">Privacy policy</a>
-      <a href="https://github.com/celalertug/startag/issues">Support</a>
-    </nav>
-    © 2026 celal ertuğ
+    <a href="https://chromewebstore.google.com/detail/pbjnpmknihffaicdpihfnhmknekfmiph">Chrome Web Store</a>
+    <a href="https://gist.github.com/celalertug/ff7214f00de40b35398c74f154c5055e">Privacy</a>
+    <a href="https://github.com/celalertug/startag/issues">Support</a>
+    <span class="legal">Not affiliated with TxDMV or Meta · © 2026 celal ertuğ</span>
   </div>
 </footer>
 </body>

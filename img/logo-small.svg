@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs><mask id="hole" maskUnits="userSpaceOnUse" x="0" y="0" width="128" height="128"><rect width="128" height="128" fill="#fff"/></mask></defs>
+  <g mask="url(#hole)"><path d="M -50 0 L -24 -30 L 40 -30 L 40 30 L -24 30 Z" transform="translate(64 64) scale(0.94) rotate(45)" fill="none" stroke="#FFF8EC" stroke-width="24" stroke-linejoin="round"/>
+  <path d="M -50 0 L -24 -30 L 40 -30 L 40 30 L -24 30 Z" transform="translate(64 64) scale(0.94) rotate(45)" fill="#0B2A4A" stroke="#0B2A4A" stroke-width="14" stroke-linejoin="round"/></g>
+  
+  <polygon points="70.65,44.33 77.14,61.7 95.68,62.51 81.16,74.06 86.12,91.94 70.65,81.7 55.18,91.94 60.13,74.06 45.61,62.51 64.15,61.7" fill="#fff" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+  <polygon points="70.65,58.9 73.55,66.65 81.82,67.02 75.34,72.17 77.55,80.15 70.65,75.58 63.74,80.15 65.95,72.17 59.47,67.02 67.75,66.65" fill="#C8102E"/>
+</svg>
